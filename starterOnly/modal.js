@@ -2,8 +2,15 @@ function editNav() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
     x.className += " responsive";
+    x.style.flexDirection = "column"
+    x.style.alignItems = "stretch"
+
   } else {
     x.className = "topnav";
+    x.style.flexDirection = "row"
+    x.style.alignItems = "center"
+
+
   }
 }
 
@@ -199,7 +206,7 @@ form.addEventListener('submit', (e) => {
   }
 
 })
-launchModal(e)
+launchModal()
 
 
 
