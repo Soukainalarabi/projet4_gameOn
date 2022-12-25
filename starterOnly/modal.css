@@ -9,7 +9,9 @@
   padding: 0;
 }
 /* Landing Page */
-
+#firstNameErrorMsg , #lastNameErrorMsg ,#emailErrorMsg,#birthdateErrorMsg ,#nbTournoisErrorMsg ,#tournoisErrorMsg ,#conditionErrorMsg{
+  color: red;
+}
 body {
   margin: 0;
   /* display: flex;
