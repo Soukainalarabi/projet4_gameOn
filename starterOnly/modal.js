@@ -15,6 +15,7 @@ function editNav() {
 }
 
 // DOM Elements
+let body = document.querySelector("body")
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
@@ -29,7 +30,6 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 // launch modal form
 function launchModal() {
-  document.forms['reserve'].reset(); //le contenue du formulaire sera initialisé
   form.style.display = "block";
   let confirmMsgElement = document.getElementById("confirmation");
   confirmMsgElement.style.display = "none";
@@ -40,11 +40,15 @@ function launchModal() {
 function closeeModal() {
   modalbg.style.display = "none";
 }
+// body.addEventListener("click", () => {
+//   closeeModal()
+// })
 //close Modal event
 closeModal.addEventListener("click", () => {
   let erreurPrenom = document.getElementById("firstNameErrorMsg")
   modalbg.style.display = "none";
 })
+
 //Vérification Prénom
 const prenomInvalide = () => {
   let prenom = document.getElementById("first")
@@ -103,11 +107,24 @@ const emailInvalide = () => {
 
   }
 }
+//
+
+//Soustraire 10 ans de la date actuelle
+function subtractYears(date, years) {
+  date.setFullYear(date.getFullYear() - years);
+  return date;
+}
+
 //verification Birthdate
 const birthDateInvalid = () => {
   let date = document.getElementById("birthdate")
+
+
   let erreurDate = document.getElementById("birthdateErrorMsg")
-  if (date.value) {
+  let birthDayDate = date.value ? new Date(date.value) : null;
+  let tenYBeforeNown = subtractYears(new Date(), 10);
+
+  if (birthDayDate && tenYBeforeNown >= birthDayDate) {
     erreurDate.textContent = ""
     return true
   } else {
@@ -139,20 +156,18 @@ const tournoiNbInvalide = () => {
 }
 //Vérification tournois radio
 const tournoiInvalide = () => {
-  let tournois = document.querySelectorAll('input[type="radio"]')
-  let erreurTournois = document.getElementById("tournoisErrorMsg")
+  let location = document.querySelector('input[name="location"]:checked')
+  let erreurLocation = document.getElementById("tournoisErrorMsg")
   let radioSelectionne = false;
 
-  tournois.forEach((tournoi) => {
-    if (tournoi.checked) {
-      radioSelectionne = true;
-      erreurTournois.textContent = ""
-    } if (!radioSelectionne) {
-      erreurTournois.textContent = "Veuillez séléctionner un pays"
-      radioSelectionne = false;
+  if (location) {
+    radioSelectionne = true;
+    erreurLocation.textContent = ""
+  } if (!radioSelectionne) {
+    erreurLocation.textContent = "Veuillez séléctionner un pays"
+    radioSelectionne = false;
 
-    }
-  })
+  }
   return radioSelectionne;
 
 }
@@ -169,13 +184,13 @@ const condition = () => {
 
   }
 }
+
 function showConfirmMessageOK() {
   form.style.display = "none";
   confirmMsgElement.style.display = "block";
 }
 form.addEventListener('submit', (e) => {
   e.preventDefault()
-
   let isPrenomValid = prenomInvalide()
   let isNomValid = nomInvalide()
   let isEmailValid = emailInvalide()
@@ -186,11 +201,25 @@ form.addEventListener('submit', (e) => {
   if (isPrenomValid && isNomValid && isEmailValid && isBirthDateValid && isTournoiNbValid && isTournoiValid && isConditionValid) {
     showConfirmMessageOK(e)
 
+    let formValue = {
+      prenom: first.value,
+      nom: last.value,
+      email: email.value,
+      birthdate: birthdate.value,
+      quantity: quantity.value,
+      location: document.querySelector('input[name="location"]:checked').value,
+
+    }
+
+
+    console.log(formValue);
+
 
 
   }
 
 })
+document.forms['reserve'].reset(); //le contenue du formulaire sera initialisé
 launchModal()
 
 
