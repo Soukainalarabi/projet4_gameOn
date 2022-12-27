@@ -16,7 +16,7 @@ let date = document.getElementById("birthdate")
 let erreurDate = document.getElementById("birthdateErrorMsg")
 let nbTournois = document.getElementById("quantity")
 let erreurNbTournois = document.getElementById("nbTournoisErrorMsg")
-let location = document.querySelector('input[name="location"]:checked')
+let pays = document.querySelector('input[name="location"]:checked')
 let erreurLocation = document.getElementById("tournoisErrorMsg")
 let conditionGenerale = document.getElementById("checkbox1")
 let conditionError = document.getElementById("conditionErrorMsg")
@@ -27,7 +27,6 @@ function editNav() {
     x.className += " responsive";
     x.style.flexDirection = "column"
     x.style.alignItems = "stretch"
-
   } else {
     x.className = "topnav";
     x.style.flexDirection = "row"
@@ -86,7 +85,6 @@ const nomInvalide = () => {
 //Vérification Email
 const emailInvalide = () => {
   let regexEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
   if (!email.value) {
     erreurEmail.textContent = "Veuillez saisir votre email"
     return false
@@ -105,21 +103,18 @@ function subtractYears(date, years) {
   date.setFullYear(date.getFullYear() - years);
   return date;
 }
-
 //verification Birthdate
 const birthDateInvalid = () => {
   // let date = document.getElementById("birthdate")
   // let erreurDate = document.getElementById("birthdateErrorMsg")
   let birthDayDate = date.value ? new Date(date.value) : null;
   let tenYBeforeNown = subtractYears(new Date(), 10);
-
   if (birthDayDate && tenYBeforeNown >= birthDayDate) {
     erreurDate.textContent = ""
     return true
   } else {
     erreurDate.textContent = "Vous devez entrer votre date de naissance"
     return false
-
   }
 }
 //Vérification tournois number
@@ -137,13 +132,12 @@ const tournoiNbInvalide = () => {
   else {
     erreurNbTournois.textContent = "Ce champs doit contenir une valeur numérique"
     return false
-
   }
 }
 //Vérification tournois radio
 const tournoiInvalide = () => {
   let radioSelectionne = false;
-  if (location) {
+  if (pays) {
     radioSelectionne = true;
     erreurLocation.textContent = ""
   } if (!radioSelectionne) {
@@ -161,7 +155,10 @@ const condition = () => {
     return false
   }
 }
+document.querySelectorAll('input[name="location"]').forEach(e => e.addEventListener("click", (e) => {
+  pays = e.target.value
 
+}))
 function showConfirmMessageOK() {
   form.style.display = "none";
   confirmMsgElement.style.display = "block";
@@ -178,19 +175,17 @@ form.addEventListener('submit', (e) => {
   if (isPrenomValid && isNomValid && isEmailValid && isBirthDateValid && isTournoiNbValid && isTournoiValid && isConditionValid) {
     showConfirmMessageOK()
     let formValue = {
-      prenom: first.value,
-      nom: last.value,
+      prenom: prenom.value,
+      nom: nom.value,
       email: email.value,
-      birthdate: birthdate.value,
-      quantity: quantity.value,
-      location: document.querySelector('input[name="location"]:checked').value,
-
+      birthdate: date.value,
+      quantity: nbTournois.value,
+      pays: pays,
     }
     console.log(formValue);
+    document.forms['reserve'].reset(); //le contenue du formulaire sera initialisé
   }
-
 })
-document.forms['reserve'].reset(); //le contenue du formulaire sera initialisé
 launchModal()
 
 
