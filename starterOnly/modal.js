@@ -1,3 +1,26 @@
+// DOM Elements
+const modalbg = document.querySelector(".bground");
+const modalBtn = document.querySelectorAll(".modal-btn");
+const formData = document.querySelectorAll(".formData");
+let form = document.querySelector("form")
+let modalBody = document.querySelector(".modal-body")
+let closeModal = document.querySelector(".close")
+let confirmMsgElement = document.getElementById("confirmation");
+let prenom = document.getElementById("first")
+let erreurPrenom = document.getElementById("firstNameErrorMsg")
+let nom = document.getElementById("last")
+let erreurNom = document.getElementById("lastNameErrorMsg")
+let email = document.getElementById("email")
+let erreurEmail = document.getElementById("emailErrorMsg")
+let date = document.getElementById("birthdate")
+let erreurDate = document.getElementById("birthdateErrorMsg")
+let nbTournois = document.getElementById("quantity")
+let erreurNbTournois = document.getElementById("nbTournoisErrorMsg")
+let location = document.querySelector('input[name="location"]:checked')
+let erreurLocation = document.getElementById("tournoisErrorMsg")
+let conditionGenerale = document.getElementById("checkbox1")
+let conditionError = document.getElementById("conditionErrorMsg")
+//responsive menu burger
 function editNav() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
@@ -9,50 +32,27 @@ function editNav() {
     x.className = "topnav";
     x.style.flexDirection = "row"
     x.style.alignItems = "center"
-
-
   }
 }
-
-// DOM Elements
-let body = document.querySelector("body")
-const modalbg = document.querySelector(".bground");
-const modalBtn = document.querySelectorAll(".modal-btn");
-const formData = document.querySelectorAll(".formData");
-let form = document.querySelector("form")
-let modalBody = document.querySelector(".modal-body")
-let closeModal = document.querySelector(".close")
-let confirmMsgElement = document.getElementById("confirmation");
-
-
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-
 // launch modal form
 function launchModal() {
   form.style.display = "block";
-  let confirmMsgElement = document.getElementById("confirmation");
   confirmMsgElement.style.display = "none";
+  console.log(confirmMsgElement);
   modalbg.style.display = "block";
-
 }
 //close Modal 
 function closeeModal() {
   modalbg.style.display = "none";
 }
-// body.addEventListener("click", () => {
-//   closeeModal()
-// })
-//close Modal event
+//close Modal icon
 closeModal.addEventListener("click", () => {
-  let erreurPrenom = document.getElementById("firstNameErrorMsg")
   modalbg.style.display = "none";
 })
-
 //Vérification Prénom
 const prenomInvalide = () => {
-  let prenom = document.getElementById("first")
-  let erreurPrenom = document.getElementById("firstNameErrorMsg")
   let regexPrenom = /^[a-z]{2}/gi
   if (!prenom.value) {
     erreurPrenom.textContent = "Veuillez saisir votre prénom"
@@ -69,13 +69,10 @@ const prenomInvalide = () => {
 }
 //Vérification Nom
 const nomInvalide = () => {
-  let nom = document.getElementById("last")
-  let erreurNom = document.getElementById("lastNameErrorMsg")
   let regexNom = /^[a-z]{2}/gi
   if (!nom.value) {
     erreurNom.textContent = "Veuillez saisir votre nom"
     return false
-
   }
   if (nom.value.match(regexNom)) {
     erreurNom.textContent = ""
@@ -84,13 +81,10 @@ const nomInvalide = () => {
   else {
     erreurNom.textContent = "Le nom doit contenir minimum 2 caractères "
     return false
-
   }
 }
 //Vérification Email
 const emailInvalide = () => {
-  let email = document.getElementById("email")
-  let erreurEmail = document.getElementById("emailErrorMsg")
   let regexEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   if (!email.value) {
@@ -104,11 +98,8 @@ const emailInvalide = () => {
   else {
     erreurEmail.textContent = "L'adresse électronique est invalide "
     return false
-
   }
 }
-//
-
 //Soustraire 10 ans de la date actuelle
 function subtractYears(date, years) {
   date.setFullYear(date.getFullYear() - years);
@@ -117,10 +108,8 @@ function subtractYears(date, years) {
 
 //verification Birthdate
 const birthDateInvalid = () => {
-  let date = document.getElementById("birthdate")
-
-
-  let erreurDate = document.getElementById("birthdateErrorMsg")
+  // let date = document.getElementById("birthdate")
+  // let erreurDate = document.getElementById("birthdateErrorMsg")
   let birthDayDate = date.value ? new Date(date.value) : null;
   let tenYBeforeNown = subtractYears(new Date(), 10);
 
@@ -135,10 +124,7 @@ const birthDateInvalid = () => {
 }
 //Vérification tournois number
 const tournoiNbInvalide = () => {
-  let nbTournois = document.getElementById("quantity")
-  let erreurNbTournois = document.getElementById("nbTournoisErrorMsg")
   let regexNbTournois = /^[0-9]{1}/
-
   if (!nbTournois.value) {
     erreurNbTournois.textContent = "Veuillez saisir à combien de tournois vous avez participé"
     return false
@@ -156,32 +142,23 @@ const tournoiNbInvalide = () => {
 }
 //Vérification tournois radio
 const tournoiInvalide = () => {
-  let location = document.querySelector('input[name="location"]:checked')
-  let erreurLocation = document.getElementById("tournoisErrorMsg")
   let radioSelectionne = false;
-
   if (location) {
     radioSelectionne = true;
     erreurLocation.textContent = ""
   } if (!radioSelectionne) {
     erreurLocation.textContent = "Veuillez séléctionner un pays"
     radioSelectionne = false;
-
   }
   return radioSelectionne;
-
 }
 const condition = () => {
-  let conditionGenerale = document.getElementById("checkbox1")
-  let conditionError = document.getElementById("conditionErrorMsg")
   if (conditionGenerale.checked) {
     conditionError.textContent = ""
     return true
-
   } else {
     conditionError.textContent = "Vous devez vérifier que vous acceptez les termes et conditions."
     return false
-
   }
 }
 
@@ -199,8 +176,7 @@ form.addEventListener('submit', (e) => {
   let isTournoiValid = tournoiInvalide()
   let isConditionValid = condition()
   if (isPrenomValid && isNomValid && isEmailValid && isBirthDateValid && isTournoiNbValid && isTournoiValid && isConditionValid) {
-    showConfirmMessageOK(e)
-
+    showConfirmMessageOK()
     let formValue = {
       prenom: first.value,
       nom: last.value,
@@ -210,12 +186,7 @@ form.addEventListener('submit', (e) => {
       location: document.querySelector('input[name="location"]:checked').value,
 
     }
-
-
     console.log(formValue);
-
-
-
   }
 
 })
