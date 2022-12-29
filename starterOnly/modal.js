@@ -32,9 +32,6 @@ function editNav() {
     x.className = "topnav";
     x.style.flexDirection = "row"
     x.style.alignItems = "center"
-    // y.setAttribute('style', 'padding-top: 2%;');
-
-
   }
 }
 // launch modal event
@@ -46,7 +43,7 @@ function launchModal() {
   console.log(confirmMsgElement);
   modalbg.style.display = "block";
 }
-//close Modal 
+//close Modal avec le bouton fermer
 function closeeModal() {
   modalbg.style.display = "none";
 }
@@ -109,8 +106,6 @@ function subtractYears(date, years) {
 }
 //verification Birthdate
 const birthDateInvalid = () => {
-  // let date = document.getElementById("birthdate")
-  // let erreurDate = document.getElementById("birthdateErrorMsg")
   let birthDayDate = date.value ? new Date(date.value) : null;
   let tenYBeforeNown = subtractYears(new Date(), 10);
   if (birthDayDate && tenYBeforeNown >= birthDayDate) {
@@ -150,6 +145,7 @@ const tournoiInvalide = () => {
   }
   return radioSelectionne;
 }
+//Vérification condition générale
 const condition = () => {
   if (conditionGenerale.checked) {
     conditionError.textContent = ""
@@ -159,10 +155,13 @@ const condition = () => {
     return false
   }
 }
+//tournois radio event
+
 document.querySelectorAll('input[name="location"]').forEach(e => e.addEventListener("click", (e) => {
   pays = e.target.value
 
 }))
+//la modale de confirmation de l'inscription
 function showConfirmMessageOK() {
   form.style.display = "none";
   confirmMsgElement.style.display = "block";
