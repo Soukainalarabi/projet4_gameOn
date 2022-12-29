@@ -22,7 +22,8 @@ let conditionGenerale = document.getElementById("checkbox1")
 let conditionError = document.getElementById("conditionErrorMsg")
 //responsive menu burger
 function editNav() {
-  var x = document.getElementById("myTopnav");
+  const x = document.getElementById("myTopnav");
+  const y = document.querySelector(".main-navbar")
   if (x.className === "topnav") {
     x.className += " responsive";
     x.style.flexDirection = "column"
@@ -31,6 +32,9 @@ function editNav() {
     x.className = "topnav";
     x.style.flexDirection = "row"
     x.style.alignItems = "center"
+    // y.setAttribute('style', 'padding-top: 2%;');
+
+
   }
 }
 // launch modal event
@@ -185,8 +189,9 @@ form.addEventListener('submit', (e) => {
     console.log(formValue);
     document.forms['reserve'].reset(); //le contenue du formulaire sera initialisé
   }
+  launchModal()
+
 })
-launchModal()
 
 
 
