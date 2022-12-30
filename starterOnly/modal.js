@@ -40,7 +40,6 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 function launchModal() {
   form.style.display = "block";
   confirmMsgElement.style.display = "none";
-  console.log(confirmMsgElement);
   modalbg.style.display = "block";
 }
 //close Modal avec le bouton fermer
@@ -188,7 +187,6 @@ form.addEventListener('submit', (e) => {
     console.log(formValue);
     document.forms['reserve'].reset(); //le contenue du formulaire sera initialisé
   }
-  launchModal()
 
 })
 
