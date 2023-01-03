@@ -38,7 +38,7 @@ function editNav() {
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
 function launchModal() {
-  form.style.display = "block";
+  // form.style.display = "block";
   confirmMsgElement.style.display = "none";
   modalbg.style.display = "block";
 }
@@ -51,13 +51,13 @@ closeModal.addEventListener("click", () => {
   modalbg.style.display = "none";
 })
 //Vérification Prénom
-const prenomInvalide = () => {
-  let regexPrenom = /^[a-z]{2}/gi
-  if (!prenom.value) {
+const prenomInvalide = () => {//retourne un boolean
+  let regexPrenom = /^[a-z]{2}/gi 
+  if (!prenom.value) {//prenom est vide 
     erreurPrenom.textContent = "Veuillez saisir votre prénom"
     return false;
   }
-  if (prenom.value.match(regexPrenom)) {
+  if (prenom.value.match(regexPrenom)) { //vérifier si le regex est pri en charge a l'aide de la methode match()
     erreurPrenom.textContent = ""
     return true
   }
@@ -67,13 +67,13 @@ const prenomInvalide = () => {
   }
 }
 //Vérification Nom
-const nomInvalide = () => {
+const nomInvalide = () => {//retourne un boolean
   let regexNom = /^[a-z]{2}/gi
-  if (!nom.value) {
+  if (!nom.value) {//nom est vide 
     erreurNom.textContent = "Veuillez saisir votre nom"
     return false
   }
-  if (nom.value.match(regexNom)) {
+  if (nom.value.match(regexNom)) {//vérifier si le regex est pri en charge a l'aide de la methode match()
     erreurNom.textContent = ""
     return true
   }
@@ -83,13 +83,13 @@ const nomInvalide = () => {
   }
 }
 //Vérification Email
-const emailInvalide = () => {
+const emailInvalide = () => {//retourne un boolean
   let regexEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  if (!email.value) {
+  if (!email.value) {//email est vide 
     erreurEmail.textContent = "Veuillez saisir votre email"
     return false
   }
-  if (email.value.match(regexEmail)) {
+  if (email.value.match(regexEmail)) {//vérifier si le regex est pri en charge a l'aide de la methode match()
     erreurEmail.textContent = ""
     return true
   }
@@ -100,11 +100,11 @@ const emailInvalide = () => {
 }
 //Soustraire 10 ans de la date actuelle
 function subtractYears(date, years) {
-  date.setFullYear(date.getFullYear() - years);
+  date.setFullYear(date.getFullYear() - years); // setFullYear() : définit l'année complête pour une date, d'après l'heure locale
   return date;
 }
 //verification Birthdate
-const birthDateInvalid = () => {
+const birthDateInvalid = () => { //retourne un boolean
   let birthDayDate = date.value ? new Date(date.value) : null;
   let tenYBeforeNown = subtractYears(new Date(), 10);
   if (birthDayDate && tenYBeforeNown >= birthDayDate) {
@@ -116,13 +116,13 @@ const birthDateInvalid = () => {
   }
 }
 //Vérification tournois number
-const tournoiNbInvalide = () => {
+const tournoiNbInvalide = () => {//retourne un boolean
   let regexNbTournois = /^[0-9]{1}/
-  if (!nbTournois.value) {
+  if (!nbTournois.value) { //nbTournois est vide
     erreurNbTournois.textContent = "Veuillez saisir à combien de tournois vous avez participé"
     return false
   }
-  if (nbTournois.value.match(regexNbTournois)) {
+  if (nbTournois.value.match(regexNbTournois)) { //vérifier si le regex est pri en charge a l'aide de la methode match()
 
     erreurNbTournois.textContent = ""
     return true
@@ -133,7 +133,7 @@ const tournoiNbInvalide = () => {
   }
 }
 //Vérification tournois radio
-const tournoiInvalide = () => {
+const tournoiInvalide = () => {//retourne un boolean
   let radioSelectionne = false;
   if (pays) {
     radioSelectionne = true;
@@ -145,7 +145,7 @@ const tournoiInvalide = () => {
   return radioSelectionne;
 }
 //Vérification condition générale
-const condition = () => {
+const condition = () => { //retourne un boolean
   if (conditionGenerale.checked) {
     conditionError.textContent = ""
     return true
@@ -155,16 +155,16 @@ const condition = () => {
   }
 }
 //tournois radio event
-
 document.querySelectorAll('input[name="location"]').forEach(e => e.addEventListener("click", (e) => {
   pays = e.target.value
 
 }))
 //la modale de confirmation de l'inscription
 function showConfirmMessageOK() {
-  form.style.display = "none";
+   form.style.display = "none";
   confirmMsgElement.style.display = "block";
 }
+//event form
 form.addEventListener('submit', (e) => {
   e.preventDefault()
   let isPrenomValid = prenomInvalide()
