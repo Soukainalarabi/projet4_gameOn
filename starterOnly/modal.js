@@ -16,7 +16,8 @@ let date = document.getElementById("birthdate")
 let erreurDate = document.getElementById("birthdateErrorMsg")
 let nbTournois = document.getElementById("quantity")
 let erreurNbTournois = document.getElementById("nbTournoisErrorMsg")
-let pays = document.querySelector('input[name="location"]:checked')
+let selectedLocation = null;
+let locations = document.querySelectorAll('input[name="location"]')
 let erreurLocation = document.getElementById("tournoisErrorMsg")
 let conditionGenerale = document.getElementById("checkbox1")
 let conditionError = document.getElementById("conditionErrorMsg")
@@ -34,11 +35,17 @@ function editNav() {
     x.style.alignItems = "center"
   }
 }
+//tournois radio event
+locations.forEach(e => e.addEventListener("click", (e) => {
+  selectedLocation = e.target.value
+
+}))
+
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
 function launchModal() {
-  // form.style.display = "block";
+  form.style.display = "block";
   confirmMsgElement.style.display = "none";
   modalbg.style.display = "block";
 }
@@ -52,7 +59,7 @@ closeModal.addEventListener("click", () => {
 })
 //Vérification Prénom
 const prenomInvalide = () => {//retourne un boolean
-  let regexPrenom = /^[a-z]{2}/gi 
+  let regexPrenom = /^[a-z]{2}/gi
   if (!prenom.value) {//prenom est vide 
     erreurPrenom.textContent = "Veuillez saisir votre prénom"
     return false;
@@ -135,10 +142,10 @@ const tournoiNbInvalide = () => {//retourne un boolean
 //Vérification tournois radio
 const tournoiInvalide = () => {//retourne un boolean
   let radioSelectionne = false;
-  if (pays) {
+  if (selectedLocation) {
     radioSelectionne = true;
     erreurLocation.textContent = ""
-  } if (!radioSelectionne) {
+  } else {
     erreurLocation.textContent = "Veuillez séléctionner un pays"
     radioSelectionne = false;
   }
@@ -154,14 +161,10 @@ const condition = () => { //retourne un boolean
     return false
   }
 }
-//tournois radio event
-document.querySelectorAll('input[name="location"]').forEach(e => e.addEventListener("click", (e) => {
-  pays = e.target.value
 
-}))
 //la modale de confirmation de l'inscription
 function showConfirmMessageOK() {
-   form.style.display = "none";
+  form.style.display = "none";
   confirmMsgElement.style.display = "block";
 }
 //event form
@@ -182,13 +185,13 @@ form.addEventListener('submit', (e) => {
       email: email.value,
       birthdate: date.value,
       quantity: nbTournois.value,
-      pays: pays,
+      selectedLocation: selectedLocation,
     }
     console.log(formValue);
     document.forms['reserve'].reset(); //le contenue du formulaire sera initialisé
+    selectedLocation = null; //reinitialiser la location pour les prochains formulaires
+
   }
 
 })
-
-
 
